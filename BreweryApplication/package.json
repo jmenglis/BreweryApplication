@@ -1,0 +1,23 @@
+{
+  "name": "breweryapplication",
+  "version": "1.0.0",
+  "description": "Application to help others find breweries",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jmenglis/BreweryApplication.git"
+  },
+  "author": "Josh English <josh@joshenglish.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jmenglis/BreweryApplication/issues"
+  },
+  "homepage": "https://github.com/jmenglis/BreweryApplication#readme",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-sass": "^2.3.1"
+  }
+}
