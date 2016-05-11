@@ -9,8 +9,25 @@
     <link type="text/css" rel="stylesheet" href="~/Content/materialize.min.css" media="screen,projection" />
 </head>
 <body>
+    <nav>
+        <div class="nav-wrapper">
+            @Html.ActionLink("Where is that Brewery?", "Index", "Home", new { area = "" }, new { @class = "brand-logo" }) 
+            <a href="#" data-activates="mobile-time" class="button-collapse"><i class="material-icons">menu</i></a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" })</li>
+                <li>@Html.ActionLink("Test", "Index", "Home", new { area = "" })</li>
+            </ul>
+            <ul class="side-nav" id="mobile-time">
+                <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" })</li>
+                <li>@Html.ActionLink("Test", "Index", "Home", new { area = "" })</li>
+            </ul>
+        </div>
+    </nav>
         @RenderBody()
     <script src="~/scripts/jquery-2.2.3.min.js"></script>
-    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="~/scripts/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.2/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.2/react-dom.js"></script>
+    <script type="text/javascript" src="~/scripts/app.js"></script>
 </body>
 </html>
