@@ -16,6 +16,10 @@ var Breweries = React.createClass({
             breweryArray: []
         }
     },
+    handleSubmit: function(e) {
+        e.preventDefault();
+        console.log(this.props.data);
+    },
     componentDidMount: function() {
         $.ajax({
             url: this.props.url,
@@ -37,25 +41,43 @@ var Breweries = React.createClass({
     render: function() {
         var myArray = this.state.breweryArray;
         if (!this.state.breweryArray) {
-            console.log("what");
             return null;
         }
         return (
-            <div className="BreweryList">
+            <div className="row">
+                <form onSubmit={this.handleSubmit} className="col s12">
+                    <div className="row">
+                        <div className="input-field col s6">
+                            <input id="locality" type="text" className="validate" />
+                            <label htmlFor="locality">City/Town</label>
+                        </div>
+                        <div className="input-field col s6">
+                            <input id="state" type="text" className="validate" />
+                            <label htmlFor="state">State</label>
+                        </div>
+                    </div>
+                    <button className="btn waves-effect waves-light" type="submit">Submit
+                        <i className="material-icons right">send</i>
+                    </button>
+                </form>
+            <div className="row">
             {
                 myArray.map(function(brewery) {
                     return (
                         <div key={brewery.id}>
-                            <h3>{brewery.name}</h3>
+                            <h4>{brewery.name}</h4>
                             <ul>
                                 <li><b>Description: </b> {brewery.description}</li>
+                                <li><b>Year Established: </b> {brewery.established}</li>
+                                <li><b>Website: </b> {brewery.website}</li>
                             </ul>
                         </div>
                     );
-                })
+    })
             }
-        </div>
+            </div>
+           </div>
             );
     }
 });
-ReactDOM.render( <Breweries url="/home/getbrewery" name="Breweries" />, document.getElementById('container'));
+ReactDOM.render( <Breweries name="Breweries" />, document.getElementById('container'));

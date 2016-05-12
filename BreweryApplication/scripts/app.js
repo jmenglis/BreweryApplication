@@ -21,6 +21,10 @@ var Breweries = React.createClass({
             breweryArray: []
         };
     },
+    handleSubmit: function handleSubmit(e) {
+        e.preventDefault();
+        console.log(this.props.data);
+    },
     componentDidMount: function componentDidMount() {
         $.ajax({
             url: this.props.url,
@@ -42,41 +46,104 @@ var Breweries = React.createClass({
     render: function render() {
         var myArray = this.state.breweryArray;
         if (!this.state.breweryArray) {
-            console.log("what");
             return null;
         }
         return React.createElement(
             "div",
-            { className: "BreweryList" },
-            myArray.map(function (brewery) {
-                return React.createElement(
+            { className: "row" },
+            React.createElement(
+                "form",
+                { onSubmit: this.handleSubmit, className: "col s12" },
+                React.createElement(
                     "div",
-                    { key: brewery.id },
+                    { className: "row" },
                     React.createElement(
-                        "h3",
-                        null,
-                        brewery.name
+                        "div",
+                        { className: "input-field col s6" },
+                        React.createElement("input", { id: "locality", type: "text", className: "validate" }),
+                        React.createElement(
+                            "label",
+                            { htmlFor: "locality" },
+                            "City/Town"
+                        )
                     ),
                     React.createElement(
-                        "ul",
-                        null,
+                        "div",
+                        { className: "input-field col s6" },
+                        React.createElement("input", { id: "state", type: "text", className: "validate" }),
                         React.createElement(
-                            "li",
-                            null,
-                            React.createElement(
-                                "b",
-                                null,
-                                "Description: "
-                            ),
-                            " ",
-                            brewery.description
+                            "label",
+                            { htmlFor: "state" },
+                            "State"
                         )
                     )
-                );
-            })
+                ),
+                React.createElement(
+                    "button",
+                    { className: "btn waves-effect waves-light", type: "submit" },
+                    "Submit",
+                    React.createElement(
+                        "i",
+                        { className: "material-icons right" },
+                        "send"
+                    )
+                )
+            ),
+            React.createElement(
+                "div",
+                { className: "row" },
+                myArray.map(function (brewery) {
+                    return React.createElement(
+                        "div",
+                        { key: brewery.id },
+                        React.createElement(
+                            "h4",
+                            null,
+                            brewery.name
+                        ),
+                        React.createElement(
+                            "ul",
+                            null,
+                            React.createElement(
+                                "li",
+                                null,
+                                React.createElement(
+                                    "b",
+                                    null,
+                                    "Description: "
+                                ),
+                                " ",
+                                brewery.description
+                            ),
+                            React.createElement(
+                                "li",
+                                null,
+                                React.createElement(
+                                    "b",
+                                    null,
+                                    "Year Established: "
+                                ),
+                                " ",
+                                brewery.established
+                            ),
+                            React.createElement(
+                                "li",
+                                null,
+                                React.createElement(
+                                    "b",
+                                    null,
+                                    "Website: "
+                                ),
+                                " ",
+                                brewery.website
+                            )
+                        )
+                    );
+                })
+            )
         );
     }
 });
-ReactDOM.render(React.createElement(Breweries, { url: "/home/getbrewery", name: "Breweries" }), document.getElementById('container'));
+ReactDOM.render(React.createElement(Breweries, { name: "Breweries" }), document.getElementById('container'));
 
 },{}]},{},[1]);
