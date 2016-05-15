@@ -35,6 +35,7 @@ var Breweries = React.createClass({
     },
     handleSubmit: function handleSubmit(e) {
         console.log(this.state);
+        this.state.breweryArray = [];
         e.preventDefault();
         $.ajax({
             url: "http://localhost:4495/Home/GetBrewery",
@@ -65,6 +66,11 @@ var Breweries = React.createClass({
         return React.createElement(
             "div",
             { className: "row" },
+            React.createElement(
+                "h4",
+                { className: "centerize" },
+                "Find a Brewery in your Local Area"
+            ),
             React.createElement(
                 "form",
                 { onSubmit: this.handleSubmit, className: "col s12" },
@@ -101,59 +107,59 @@ var Breweries = React.createClass({
                         { className: "material-icons right" },
                         "send"
                     )
-                )
+                ),
+                React.createElement("br", null),
+                React.createElement("br", null)
             ),
             React.createElement(
                 "div",
                 { className: "row" },
-                myArray.map(function (brewery) {
-                    return React.createElement(
-                        "div",
-                        { key: brewery.id },
-                        React.createElement(
-                            "h4",
-                            null,
-                            brewery.name
-                        ),
-                        React.createElement(
-                            "ul",
-                            null,
+                React.createElement(
+                    "div",
+                    { className: "col s12" },
+                    myArray.map(function (brewery) {
+                        return React.createElement(
+                            "div",
+                            { key: brewery.id },
                             React.createElement(
-                                "li",
+                                "h4",
                                 null,
                                 React.createElement(
-                                    "b",
-                                    null,
-                                    "Description: "
-                                ),
-                                " ",
-                                brewery.description
+                                    "a",
+                                    { href: brewery.website },
+                                    brewery.name
+                                )
                             ),
                             React.createElement(
-                                "li",
+                                "ul",
                                 null,
                                 React.createElement(
-                                    "b",
+                                    "li",
                                     null,
-                                    "Year Established: "
+                                    React.createElement(
+                                        "b",
+                                        null,
+                                        "Description: "
+                                    ),
+                                    " ",
+                                    brewery.description
                                 ),
-                                " ",
-                                brewery.established
+                                React.createElement(
+                                    "li",
+                                    null,
+                                    React.createElement(
+                                        "b",
+                                        null,
+                                        "Year Established: "
+                                    ),
+                                    " ",
+                                    brewery.established
+                                )
                             ),
-                            React.createElement(
-                                "li",
-                                null,
-                                React.createElement(
-                                    "b",
-                                    null,
-                                    "Website: "
-                                ),
-                                " ",
-                                brewery.website
-                            )
-                        )
-                    );
-                })
+                            React.createElement("br", null)
+                        );
+                    })
+                )
             )
         );
     }

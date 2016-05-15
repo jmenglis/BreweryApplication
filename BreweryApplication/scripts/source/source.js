@@ -30,6 +30,7 @@ var Breweries = React.createClass({
     },
     handleSubmit: function(e) {
         console.log(this.state);
+        this.state.breweryArray = [];
         e.preventDefault()
         $.ajax({
             url: "http://localhost:4495/Home/GetBrewery",
@@ -59,6 +60,7 @@ var Breweries = React.createClass({
         }
         return (
             <div className="row">
+                <h4 className="centerize">Find a Brewery in your Local Area</h4>
                 <form onSubmit={this.handleSubmit} className="col s12">
                     <div className="row">
                         <div className="input-field col s6">
@@ -73,23 +75,27 @@ var Breweries = React.createClass({
                     <button className="btn waves-effect waves-light" type="submit">Submit
                         <i className="material-icons right">send</i>
                     </button>
+                    <br />
+                    <br />
                 </form>
             <div className="row">
+                <div className="col s12">
             {
                 myArray.map(function(brewery) {
                     return (
                         <div key={brewery.id}>
-                            <h4>{brewery.name}</h4>
+                            <h4><a href={brewery.website}>{brewery.name}</a></h4>
                             <ul>
                                 <li><b>Description: </b> {brewery.description}</li>
                                 <li><b>Year Established: </b> {brewery.established}</li>
-                                <li><b>Website: </b> {brewery.website}</li>
                             </ul>
+                            <br />
                         </div>
                     );
     })
             }
-            </div>
+                  </div>
+               </div>
            </div>
             );
     }

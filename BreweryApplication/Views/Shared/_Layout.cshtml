@@ -11,15 +11,15 @@
 <body>
     <nav>
         <div class="nav-wrapper">
-            @Html.ActionLink("Where is that Brewery?", "Index", "Home", new { area = "" }, new { @class = "brand-logo" }) 
+            @Html.ActionLink("Find that Brewery!", "Index", "Home", new { area = "" }, new { @class = "brand-logo" }) 
             <a href="#" data-activates="mobile-time" class="button-collapse"><i class="material-icons">menu</i></a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" })</li>
-                <li>@Html.ActionLink("Test", "Index", "Home", new { area = "" })</li>
+                <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                <li>@Html.ActionLink("About", "About", "Home")</li>
             </ul>
             <ul class="side-nav" id="mobile-time">
-                <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" })</li>
-                <li>@Html.ActionLink("Test", "Index", "Home", new { area = "" })</li>
+                <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                <li>@Html.ActionLink("About", "About", "Home")</li>
             </ul>
         </div>
     </nav>
