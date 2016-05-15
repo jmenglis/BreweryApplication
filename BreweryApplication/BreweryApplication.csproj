@@ -194,6 +194,7 @@
     <Content Include="fonts\roboto\Roboto-Thin.ttf" />
     <Content Include="fonts\roboto\Roboto-Thin.woff" />
     <Content Include="fonts\roboto\Roboto-Thin.woff2" />
+    <Content Include="AppSettingsSecrets.config" />
     <None Include="scripts\jquery-2.2.3.intellisense.js" />
     <Content Include="scripts\app.js" />
     <Content Include="scripts\jquery-2.2.3.js" />

@@ -18,19 +18,32 @@ var Breweries = React.createClass({
 
     getInitialState: function getInitialState() {
         return {
+            city: '',
+            theState: '',
             breweryArray: []
         };
     },
-    handleSubmit: function handleSubmit(e) {
-        e.preventDefault();
-        console.log(this.props.data);
+    handleState: function handleState(event) {
+        var state = this.state;
+        state.theState = event.target.value;
+        this.setState(state);
     },
-    componentDidMount: function componentDidMount() {
+    handleCity: function handleCity(event) {
+        var state = this.state;
+        state.city = event.target.value;
+        this.setState(state);
+    },
+    handleSubmit: function handleSubmit(e) {
+        console.log(this.state);
+        e.preventDefault();
         $.ajax({
-            url: this.props.url,
-            dataType: 'json',
+            url: "http://localhost:4495/Home/GetBrewery",
+            data: JSON.stringify(this.state),
+            dataType: "json",
+            type: "POST",
             success: function (data) {
                 var final = JSON.parse(data);
+                console.log(final);
                 var self = this;
                 final.data.forEach(function (myArray) {
                     var breweryArray = self.state.breweryArray.slice();
@@ -39,6 +52,7 @@ var Breweries = React.createClass({
                 });
             }.bind(this),
             error: function (err) {
+                console.log("Error is erroring:");
                 console.error(this.props.url, err.toString());
             }.bind(this)
         });
@@ -60,7 +74,7 @@ var Breweries = React.createClass({
                     React.createElement(
                         "div",
                         { className: "input-field col s6" },
-                        React.createElement("input", { id: "locality", type: "text", className: "validate" }),
+                        React.createElement("input", { id: "locality", type: "text", onChange: this.handleCity, value: this.state.city, className: "validate" }),
                         React.createElement(
                             "label",
                             { htmlFor: "locality" },
@@ -70,7 +84,7 @@ var Breweries = React.createClass({
                     React.createElement(
                         "div",
                         { className: "input-field col s6" },
-                        React.createElement("input", { id: "state", type: "text", className: "validate" }),
+                        React.createElement("input", { id: "state", type: "text", onChange: this.handleState, value: this.state.theState, className: "validate" }),
                         React.createElement(
                             "label",
                             { htmlFor: "state" },
