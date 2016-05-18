@@ -38,7 +38,7 @@ var Breweries = React.createClass({
         this.state.breweryArray = [];
         e.preventDefault();
         $.ajax({
-            url: "http://localhost:4495/Home/GetBrewery",
+            url: "http://whereismybrewery.azurewebsites.net/Home/GetBrewery",
             data: JSON.stringify(this.state),
             dataType: "json",
             type: "POST",

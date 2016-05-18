@@ -168,6 +168,7 @@
   <ItemGroup>
     <Content Include="Content\materialize.css" />
     <Content Include="Content\materialize.min.css" />
+    <Content Include="Content\styles.css" />
     <Content Include="Global.asax" />
     <Content Include="gulpfile.js" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
@@ -195,10 +196,13 @@
     <Content Include="fonts\roboto\Roboto-Thin.woff" />
     <Content Include="fonts\roboto\Roboto-Thin.woff2" />
     <Content Include="AppSettingsSecrets.config" />
+    <None Include="Properties\PublishProfiles\WhereIsMyBrewery - Web Deploy.pubxml" />
     <None Include="scripts\jquery-2.2.3.intellisense.js" />
     <Content Include="scripts\app.js" />
     <Content Include="scripts\jquery-2.2.3.js" />
     <Content Include="scripts\jquery-2.2.3.min.js" />
+    <Content Include="scripts\materialize.js" />
+    <Content Include="scripts\materialize.min.js" />
     <Content Include="scripts\source\source.js" />
     <Content Include="Web.config" />
   </ItemGroup>
