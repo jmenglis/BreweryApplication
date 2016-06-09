@@ -38,7 +38,7 @@ var Breweries = React.createClass({
         this.state.breweryArray = [];
         e.preventDefault();
         $.ajax({
-            url: "http://whereismybrewery.azurewebsites.net/Home/GetBrewery",
+            url: "http://localhost:4495/Home/GetBrewery",
             data: JSON.stringify(this.state),
             dataType: "json",
             type: "POST",
@@ -63,6 +63,7 @@ var Breweries = React.createClass({
         if (!this.state.breweryArray) {
             return null;
         }
+        console.log(myArray);
         return React.createElement(
             "div",
             { className: "row" },
@@ -121,6 +122,15 @@ var Breweries = React.createClass({
                         return React.createElement(
                             "div",
                             { key: brewery.id },
+                            function () {
+                                if (!brewery.images) {} else {
+                                    return React.createElement(
+                                        "div",
+                                        null,
+                                        React.createElement("img", { src: brewery.images.large })
+                                    );
+                                }
+                            }(),
                             React.createElement(
                                 "h4",
                                 null,
@@ -156,6 +166,7 @@ var Breweries = React.createClass({
                                     brewery.established
                                 )
                             ),
+                            React.createElement("hr", null),
                             React.createElement("br", null)
                         );
                     })

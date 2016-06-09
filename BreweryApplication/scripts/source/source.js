@@ -33,7 +33,7 @@ var Breweries = React.createClass({
         this.state.breweryArray = [];
         e.preventDefault()
         $.ajax({
-            url: "http://whereismybrewery.azurewebsites.net/Home/GetBrewery",
+            url: "http://localhost:4495/Home/GetBrewery",
             data: JSON.stringify(this.state),
             dataType: "json",
             type: "POST",
@@ -58,6 +58,7 @@ var Breweries = React.createClass({
         if (!this.state.breweryArray) {
             return null;
         }
+        console.log(myArray);
         return (
             <div className="row">
                 <h4 className="centerize">Find a Brewery in your Local Area</h4>
@@ -84,15 +85,26 @@ var Breweries = React.createClass({
                 myArray.map(function(brewery) {
                     return (
                         <div key={brewery.id}>
+                            {(() => {
+                                if (!brewery.images) {
+                                } else {
+                                    return (
+                                        <div>
+                                            <img src={brewery.images.large} />
+                                        </div>
+                                    )
+                                }
+                            })()}
                             <h4><a href={brewery.website}>{brewery.name}</a></h4>
                             <ul>
                                 <li><b>Description: </b> {brewery.description}</li>
                                 <li><b>Year Established: </b> {brewery.established}</li>
                             </ul>
+                            <hr />
                             <br />
                         </div>
                     );
-    })
+                })
             }
                   </div>
                </div>
