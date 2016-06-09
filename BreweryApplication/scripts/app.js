@@ -118,7 +118,7 @@ var Breweries = React.createClass({
                             ),
                             React.createElement(
                                 "option",
-                                { value: "Arizon" },
+                                { value: "Arizona" },
                                 "Arizona"
                             ),
                             React.createElement(
@@ -128,7 +128,7 @@ var Breweries = React.createClass({
                             ),
                             React.createElement(
                                 "option",
-                                { value: "Calfornia" },
+                                { value: "California" },
                                 "California"
                             ),
                             React.createElement(
