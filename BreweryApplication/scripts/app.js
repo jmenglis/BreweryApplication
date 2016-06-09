@@ -4,7 +4,7 @@
 window.onload = function () {
     console.log("The document is loaded.");
     console.log("React is ready to perform its duties.");
-
+    $('select').material_select();
     // Working the mobile SideNav changes for Materialize.
     $(".button-collapse").sideNav();
 };
@@ -19,7 +19,7 @@ var Breweries = React.createClass({
     getInitialState: function getInitialState() {
         return {
             city: '',
-            theState: '',
+            theState: 'option',
             breweryArray: []
         };
     },
@@ -33,12 +33,19 @@ var Breweries = React.createClass({
         state.city = event.target.value;
         this.setState(state);
     },
+    componentDidMount: function componentDidMount() {
+        // Be able to use the select from Materialize
+        var $element = $(ReactDOM.findDOMNode(this.refs.statesDropdown));
+
+        $element.on('change', this.handleState);
+    },
+
     handleSubmit: function handleSubmit(e) {
         console.log(this.state);
         this.state.breweryArray = [];
         e.preventDefault();
         $.ajax({
-            url: "http://whereismybrewery.azurewebsites.net/Home/GetBrewery",
+            url: window.location.href + "/Home/GetBrewery",
             data: JSON.stringify(this.state),
             dataType: "json",
             type: "POST",
@@ -91,10 +98,273 @@ var Breweries = React.createClass({
                     React.createElement(
                         "div",
                         { className: "input-field col s6" },
-                        React.createElement("input", { id: "state", type: "text", onChange: this.handleState, value: this.state.theState, className: "validate" }),
+                        React.createElement(
+                            "select",
+                            { ref: "statesDropdown", onChange: this.handleState, value: this.state.theState },
+                            React.createElement(
+                                "option",
+                                { value: "option", disabled: true },
+                                "Choose your option"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "Alabama" },
+                                "Alabama"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "Alaska" },
+                                "Alaska"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "Arizon" },
+                                "Arizona"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "Arkansas" },
+                                "Arkansas"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "Calfornia" },
+                                "California"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "Colorado" },
+                                "Colorado"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "Connecticut" },
+                                "Connecticut"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "Delware" },
+                                "Delaware"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "Distric of Columbia" },
+                                "District Of Columbia"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "Florida" },
+                                "Florida"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "Georiga" },
+                                "Georgia"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "Hawaii" },
+                                "Hawaii"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "Idaho" },
+                                "Idaho"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "Illinois" },
+                                "Illinois"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "Indiana" },
+                                "Indiana"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "Iowa" },
+                                "Iowa"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "Kansas" },
+                                "Kansas"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "Kentucky" },
+                                "Kentucky"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "Louisiana" },
+                                "Louisiana"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "Maine" },
+                                "Maine"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "Maryland" },
+                                "Maryland"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "Massachusetts" },
+                                "Massachusetts"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "Michigan" },
+                                "Michigan"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "Minnesota" },
+                                "Minnesota"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "Mississippi" },
+                                "Mississippi"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "Missouri" },
+                                "Missouri"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "Montana" },
+                                "Montana"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "Nebraska" },
+                                "Nebraska"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "Nevada" },
+                                "Nevada"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "New Hampshire" },
+                                "New Hampshire"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "New Jersey" },
+                                "New Jersey"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "New Mexico" },
+                                "New Mexico"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "New York" },
+                                "New York"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "North Carolina" },
+                                "North Carolina"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "North Dakota" },
+                                "North Dakota"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "Ohio" },
+                                "Ohio"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "Oklahoma" },
+                                "Oklahoma"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "Oregon" },
+                                "Oregon"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "Pennsylvania" },
+                                "Pennsylvania"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "Rhode Island" },
+                                "Rhode Island"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "South Carolina" },
+                                "South Carolina"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "South Dakota" },
+                                "South Dakota"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "Tennessee" },
+                                "Tennessee"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "Texas" },
+                                "Texas"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "Utah" },
+                                "Utah"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "Vermont" },
+                                "Vermont"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "Virginia" },
+                                "Virginia"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "Washington" },
+                                "Washington"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "West Virginia" },
+                                "West Virginia"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "Wisconsin" },
+                                "Wisconsin"
+                            ),
+                            React.createElement(
+                                "option",
+                                { value: "Wyoming" },
+                                "Wyoming"
+                            )
+                        ),
                         React.createElement(
                             "label",
-                            { htmlFor: "state" },
+                            null,
                             "State"
                         )
                     )

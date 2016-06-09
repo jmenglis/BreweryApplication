@@ -1,7 +1,7 @@
 ﻿window.onload = function() {
     console.log("The document is loaded.");
     console.log("React is ready to perform its duties.");
-
+    $('select').material_select();
     // Working the mobile SideNav changes for Materialize.
     $(".button-collapse").sideNav();
 }
@@ -14,7 +14,7 @@ var Breweries = React.createClass({
     getInitialState: function() {
         return {
             city: '',
-            theState: '',
+            theState: 'option',
             breweryArray: []
         }
     },
@@ -28,12 +28,18 @@ var Breweries = React.createClass({
         state.city = event.target.value;
         this.setState(state);
     },
+    componentDidMount() {
+        // Be able to use the select from Materialize
+        var $element = $(ReactDOM.findDOMNode(this.refs.statesDropdown));
+
+        $element.on('change', this.handleState);
+    },
     handleSubmit: function(e) {
         console.log(this.state);
         this.state.breweryArray = [];
         e.preventDefault()
         $.ajax({
-            url: "http://whereismybrewery.azurewebsites.net/Home/GetBrewery",
+            url: window.location.href + "/Home/GetBrewery",
             data: JSON.stringify(this.state),
             dataType: "json",
             type: "POST",
@@ -69,8 +75,61 @@ var Breweries = React.createClass({
                             <label htmlFor="locality">City/Town</label>
                         </div>
                         <div className="input-field col s6">
-                            <input id="state" type="text" onChange={this.handleState} value={this.state.theState} className="validate" />
-                            <label htmlFor="state">State</label>
+                            <select ref="statesDropdown" onChange={this.handleState} value={this.state.theState}>
+                                <option value="option" disabled>Choose your option</option>
+	                            <option value="Alabama">Alabama</option>
+	                            <option value="Alaska">Alaska</option>
+	                            <option value="Arizon">Arizona</option>
+	                            <option value="Arkansas">Arkansas</option>
+	                            <option value="Calfornia">California</option>
+	                            <option value="Colorado">Colorado</option>
+	                            <option value="Connecticut">Connecticut</option>
+	                            <option value="Delware">Delaware</option>
+	                            <option value="Distric of Columbia">District Of Columbia</option>
+	                            <option value="Florida">Florida</option>
+	                            <option value="Georiga">Georgia</option>
+	                            <option value="Hawaii">Hawaii</option>
+	                            <option value="Idaho">Idaho</option>
+	                            <option value="Illinois">Illinois</option>
+	                            <option value="Indiana">Indiana</option>
+	                            <option value="Iowa">Iowa</option>
+	                            <option value="Kansas">Kansas</option>
+	                            <option value="Kentucky">Kentucky</option>
+	                            <option value="Louisiana">Louisiana</option>
+	                            <option value="Maine">Maine</option>
+	                            <option value="Maryland">Maryland</option>
+	                            <option value="Massachusetts">Massachusetts</option>
+	                            <option value="Michigan">Michigan</option>
+	                            <option value="Minnesota">Minnesota</option>
+	                            <option value="Mississippi">Mississippi</option>
+	                            <option value="Missouri">Missouri</option>
+	                            <option value="Montana">Montana</option>
+	                            <option value="Nebraska">Nebraska</option>
+	                            <option value="Nevada">Nevada</option>
+	                            <option value="New Hampshire">New Hampshire</option>
+	                            <option value="New Jersey">New Jersey</option>
+	                            <option value="New Mexico">New Mexico</option>
+	                            <option value="New York">New York</option>
+	                            <option value="North Carolina">North Carolina</option>
+	                            <option value="North Dakota">North Dakota</option>
+	                            <option value="Ohio">Ohio</option>
+	                            <option value="Oklahoma">Oklahoma</option>
+	                            <option value="Oregon">Oregon</option>
+	                            <option value="Pennsylvania">Pennsylvania</option>
+	                            <option value="Rhode Island">Rhode Island</option>
+	                            <option value="South Carolina">South Carolina</option>
+	                            <option value="South Dakota">South Dakota</option>
+	                            <option value="Tennessee">Tennessee</option>
+	                            <option value="Texas">Texas</option>
+	                            <option value="Utah">Utah</option>
+	                            <option value="Vermont">Vermont</option>
+	                            <option value="Virginia">Virginia</option>
+	                            <option value="Washington">Washington</option>
+	                            <option value="West Virginia">West Virginia</option>
+	                            <option value="Wisconsin">Wisconsin</option>
+	                            <option value="Wyoming">Wyoming</option>
+                             </select>
+                            <label>State</label>
                         </div>
                     </div>
                     <button className="btn waves-effect waves-light" type="submit">Submit
