@@ -35,7 +35,6 @@ var Breweries = React.createClass({
         $element.on('change', this.handleState);
     },
     handleSubmit: function(e) {
-        console.log(this.state);
         this.state.breweryArray = [];
         e.preventDefault()
         $.ajax({
@@ -45,11 +44,11 @@ var Breweries = React.createClass({
             type: "POST",
             success: function(data) {
                 var final = JSON.parse(data);
-                console.log(final);
                 var self = this;
                 final.data.forEach(function(myArray) {
+                    console.log(myArray)
                     var breweryArray = self.state.breweryArray.slice();
-                    breweryArray.push(myArray.brewery);
+                    breweryArray.push(myArray);
                     self.setState({ breweryArray: breweryArray})
                 });
             }.bind(this),
@@ -64,7 +63,6 @@ var Breweries = React.createClass({
         if (!this.state.breweryArray) {
             return null;
         }
-        console.log(myArray);
         return (
             <div className="row">
                 <h4 className="centerize">Find a Brewery in your Local Area</h4>
@@ -141,23 +139,23 @@ var Breweries = React.createClass({
             <div className="row">
                 <div className="col s12">
             {
-                myArray.map(function(brewery) {
+                myArray.map(function(data) {
                     return (
-                        <div key={brewery.id}>
+                        <div key={data.brewery.id}>
                             {(() => {
-                                if (!brewery.images) {
+                                if (!data.brewery.images) {
                                 } else {
                                     return (
                                         <div>
-                                            <img src={brewery.images.large} />
+                                            <img src={data.brewery.images.large} />
                                         </div>
                                     )
                                 }
                             })()}
-                            <h4><a href={brewery.website}>{brewery.name}</a></h4>
+                            <h4><a href={data.brewery.website}>{data.brewery.name}</a></h4>
                             <ul>
-                                <li><b>Description: </b> {brewery.description}</li>
-                                <li><b>Year Established: </b> {brewery.established}</li>
+                                <li><b>Description: </b> {data.brewery.description}</li>
+                                <li><b>Year Established: </b> {data.brewery.established}</li>
                             </ul>
                             <hr />
                             <br />

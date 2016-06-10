@@ -41,7 +41,6 @@ var Breweries = React.createClass({
     },
 
     handleSubmit: function handleSubmit(e) {
-        console.log(this.state);
         this.state.breweryArray = [];
         e.preventDefault();
         $.ajax({
@@ -51,11 +50,11 @@ var Breweries = React.createClass({
             type: "POST",
             success: function (data) {
                 var final = JSON.parse(data);
-                console.log(final);
                 var self = this;
                 final.data.forEach(function (myArray) {
+                    console.log(myArray);
                     var breweryArray = self.state.breweryArray.slice();
-                    breweryArray.push(myArray.brewery);
+                    breweryArray.push(myArray);
                     self.setState({ breweryArray: breweryArray });
                 });
             }.bind(this),
@@ -70,7 +69,6 @@ var Breweries = React.createClass({
         if (!this.state.breweryArray) {
             return null;
         }
-        console.log(myArray);
         return React.createElement(
             "div",
             { className: "row" },
@@ -388,16 +386,16 @@ var Breweries = React.createClass({
                 React.createElement(
                     "div",
                     { className: "col s12" },
-                    myArray.map(function (brewery) {
+                    myArray.map(function (data) {
                         return React.createElement(
                             "div",
-                            { key: brewery.id },
+                            { key: data.brewery.id },
                             function () {
-                                if (!brewery.images) {} else {
+                                if (!data.brewery.images) {} else {
                                     return React.createElement(
                                         "div",
                                         null,
-                                        React.createElement("img", { src: brewery.images.large })
+                                        React.createElement("img", { src: data.brewery.images.large })
                                     );
                                 }
                             }(),
@@ -406,8 +404,8 @@ var Breweries = React.createClass({
                                 null,
                                 React.createElement(
                                     "a",
-                                    { href: brewery.website },
-                                    brewery.name
+                                    { href: data.brewery.website },
+                                    data.brewery.name
                                 )
                             ),
                             React.createElement(
@@ -422,7 +420,7 @@ var Breweries = React.createClass({
                                         "Description: "
                                     ),
                                     " ",
-                                    brewery.description
+                                    data.brewery.description
                                 ),
                                 React.createElement(
                                     "li",
@@ -433,7 +431,7 @@ var Breweries = React.createClass({
                                         "Year Established: "
                                     ),
                                     " ",
-                                    brewery.established
+                                    data.brewery.established
                                 )
                             ),
                             React.createElement("hr", null),
