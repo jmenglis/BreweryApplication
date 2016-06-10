@@ -1,6 +1,7 @@
 ﻿window.onload = function() {
-    console.log("The document is loaded.");
-    console.log("React is ready to perform its duties.");
+    console.log("Welcome to Where is the Brewery!");
+    console.log("This application was created by Josh Engilsh");
+    console.log("You can find the code for this application at: https://github.com/jmenglis/BreweryApplication");
     $('select').material_select();
     // Working the mobile SideNav changes for Materialize.
     $(".button-collapse").sideNav();
@@ -46,7 +47,6 @@ var Breweries = React.createClass({
                 var final = JSON.parse(data);
                 var self = this;
                 final.data.forEach(function(myArray) {
-                    console.log(myArray)
                     var breweryArray = self.state.breweryArray.slice();
                     breweryArray.push(myArray);
                     self.setState({ breweryArray: breweryArray})
@@ -60,9 +60,6 @@ var Breweries = React.createClass({
     },
     render: function() {
         var myArray = this.state.breweryArray;
-        if (!this.state.breweryArray) {
-            return null;
-        }
         return (
             <div className="row">
                 <h4 className="centerize">Find a Brewery in your Local Area</h4>
@@ -136,37 +133,61 @@ var Breweries = React.createClass({
                     <br />
                     <br />
                 </form>
-            <div className="row">
-                <div className="col s12">
-            {
-                myArray.map(function(data) {
-                    return (
-                        <div key={data.brewery.id}>
-                            {(() => {
-                                if (!data.brewery.images) {
-                                } else {
-                                    return (
-                                        <div>
-                                            <img src={data.brewery.images.large} />
-                                        </div>
-                                    )
-                                }
-                            })()}
-                            <h4><a href={data.brewery.website}>{data.brewery.name}</a></h4>
-                            <ul>
-                                <li><b>Description: </b> {data.brewery.description}</li>
-                                <li><b>Year Established: </b> {data.brewery.established}</li>
-                            </ul>
-                            <hr />
-                            <br />
-                        </div>
-                    );
-                })
-            }
-                  </div>
-               </div>
-           </div>
-            );
+                <BreweryData data={myArray} />
+            </div>
+            
+        );
     }
 });
+
+var BreweryData = React.createClass({
+    render() {
+        if (!this.props.data) {
+            return null;
+        }
+        return (
+            <div className="row">
+                <div className="col s12">
+                {
+                    this.props.data.map(function(data) {
+                        if (data.status === "verified") {
+                            return (
+                                <div key={data.brewery.id}>
+                                    {(() => {
+                                        if (!data.brewery.images) {
+                                        } else {
+                                            return (
+                                                <div>
+                                                    <img src={data.brewery.images.large} />
+                                                </div>
+                                                   )
+                                        }
+                                        })()}
+                                    <h4><a href={data.brewery.website}>{data.brewery.name}</a></h4>
+                                    <ul>
+                                        <li><b>Description: </b> {data.brewery.description}</li>
+                                        <li><b>Year Established: </b> {data.brewery.established}</li>
+                                        {(() => {
+                                            if (!data.streetAddress) {
+                                                return <li><b>Address: </b> No Address Information</li>
+                                        } else {
+                                                    return <li><b>Address: </b> {data.streetAddress} {data.locality} {data.region} {data.postalCode}</li>
+                                                }
+                                        })()}
+                                    </ul>
+                                    <hr />
+                                    <br />
+                                </div>
+                            )
+                        } else {
+                            return null;
+                        }
+                    })
+                }
+                </div>
+            </div>
+        )
+    }
+
+})
 ReactDOM.render( <Breweries name="Breweries" />, document.getElementById('container'));

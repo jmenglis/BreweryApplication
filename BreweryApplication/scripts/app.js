@@ -2,8 +2,9 @@
 "use strict";
 
 window.onload = function () {
-    console.log("The document is loaded.");
-    console.log("React is ready to perform its duties.");
+    console.log("Welcome to Where is the Brewery!");
+    console.log("This application was created by Josh Engilsh");
+    console.log("You can find the code for this application at: https://github.com/jmenglis/BreweryApplication");
     $('select').material_select();
     // Working the mobile SideNav changes for Materialize.
     $(".button-collapse").sideNav();
@@ -52,7 +53,6 @@ var Breweries = React.createClass({
                 var final = JSON.parse(data);
                 var self = this;
                 final.data.forEach(function (myArray) {
-                    console.log(myArray);
                     var breweryArray = self.state.breweryArray.slice();
                     breweryArray.push(myArray);
                     self.setState({ breweryArray: breweryArray });
@@ -66,9 +66,6 @@ var Breweries = React.createClass({
     },
     render: function render() {
         var myArray = this.state.breweryArray;
-        if (!this.state.breweryArray) {
-            return null;
-        }
         return React.createElement(
             "div",
             { className: "row" },
@@ -380,13 +377,25 @@ var Breweries = React.createClass({
                 React.createElement("br", null),
                 React.createElement("br", null)
             ),
+            React.createElement(BreweryData, { data: myArray })
+        );
+    }
+});
+
+var BreweryData = React.createClass({
+    displayName: "BreweryData",
+    render: function render() {
+        if (!this.props.data) {
+            return null;
+        }
+        return React.createElement(
+            "div",
+            { className: "row" },
             React.createElement(
                 "div",
-                { className: "row" },
-                React.createElement(
-                    "div",
-                    { className: "col s12" },
-                    myArray.map(function (data) {
+                { className: "col s12" },
+                this.props.data.map(function (data) {
+                    if (data.status === "verified") {
                         return React.createElement(
                             "div",
                             { key: data.brewery.id },
@@ -432,13 +441,47 @@ var Breweries = React.createClass({
                                     ),
                                     " ",
                                     data.brewery.established
-                                )
+                                ),
+                                function () {
+                                    if (!data.streetAddress) {
+                                        return React.createElement(
+                                            "li",
+                                            null,
+                                            React.createElement(
+                                                "b",
+                                                null,
+                                                "Address: "
+                                            ),
+                                            " No Address Information"
+                                        );
+                                    } else {
+                                        return React.createElement(
+                                            "li",
+                                            null,
+                                            React.createElement(
+                                                "b",
+                                                null,
+                                                "Address: "
+                                            ),
+                                            " ",
+                                            data.streetAddress,
+                                            " ",
+                                            data.locality,
+                                            " ",
+                                            data.region,
+                                            " ",
+                                            data.postalCode
+                                        );
+                                    }
+                                }()
                             ),
                             React.createElement("hr", null),
                             React.createElement("br", null)
                         );
-                    })
-                )
+                    } else {
+                        return null;
+                    }
+                })
             )
         );
     }
